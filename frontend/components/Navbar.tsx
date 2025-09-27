@@ -12,7 +12,9 @@ import {
   MapPin, 
   MessageCircle,
   BarChart3,
-  Globe
+  Globe,
+  UserCircle,
+  Users
 } from 'lucide-react'
 
 const Navbar = () => {
@@ -29,6 +31,7 @@ const Navbar = () => {
       'nav.careerMapping': 'Career Mapping',
       'nav.colleges': 'Colleges',
       'nav.careerGenie': 'Career Genie',
+      'nav.mentors': 'Mentors',
       'nav.dashboard': 'Dashboard',
       'nav.login': 'Login',
     }
@@ -114,7 +117,7 @@ const Navbar = () => {
     { name: t('nav.careerMapping'), href: '/career-mapping', icon: BarChart3 },
     { name: t('nav.colleges'), href: '/colleges', icon: MapPin },
     { name: t('nav.careerGenie'), href: '/career-genie', icon: MessageCircle },
-    { name: t('nav.dashboard'), href: '/dashboard', icon: User },
+    { name: t('nav.mentors'), href: '/mentors', icon: Users },
   ]
 
   return (
@@ -156,12 +159,12 @@ const Navbar = () => {
                 <MessageCircle className="h-4 w-4" />
                 <span>Genie</span>
               </Link>
-              <Link href="/dashboard" className="flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-primary-50 transition-colors">
-                <User className="h-4 w-4" />
-                <span>Dashboard</span>
+              <Link href="/mentors" className="flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-primary-50 transition-colors">
+                <Users className="h-4 w-4" />
+                <span>Mentors</span>
               </Link>
             </div>
-          )}
+           )}
           
           {/* Right side - Language and Auth */}
           <div className="flex items-center space-x-2">
@@ -173,6 +176,17 @@ const Navbar = () => {
                 <option value="hi">हिन्दी</option>
               </select>
             </div>
+            
+            {/* Profile Icon - Only show when user is logged in */}
+            {user && (
+              <button 
+                onClick={() => router.push('/dashboard')}
+                className="p-2 rounded-lg text-gray-600 hover:text-primary-600 hover:bg-primary-50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                title="Dashboard"
+              >
+                <UserCircle className="h-5 w-5" />
+              </button>
+            )}
             
             {/* Auth Button */}
             <button 
@@ -241,12 +255,12 @@ const Navbar = () => {
                 <span>Career Genie</span>
               </Link>
               <Link 
-                href="/dashboard" 
+                href="/mentors" 
                 className="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-primary-50 transition-colors"
                 onClick={() => setIsOpen(false)}
               >
-                <User className="h-4 w-4" />
-                <span>Dashboard</span>
+                <Users className="h-4 w-4" />
+                <span>Mentors</span>
               </Link>
             </div>
           </div>

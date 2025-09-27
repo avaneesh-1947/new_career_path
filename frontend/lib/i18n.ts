@@ -64,7 +64,12 @@ export const translations: Record<string, Translation> = {
       signIn: "Sign in",
       orContinueWith: "Or continue with",
       google: "Google",
-      facebook: "Facebook"
+      facebook: "Facebook",
+      loginSuccess: "Login successful!",
+      loginFailed: "Login failed. Please check your credentials.",
+      registerSuccess: "Registration successful!",
+      registerFailed: "Registration failed. Please try again.",
+      passwordsDoNotMatch: "Passwords do not match"
     },
     // Classes
     classes: {

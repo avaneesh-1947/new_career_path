@@ -15,7 +15,18 @@ import {
   ArrowRight,
   RotateCcw,
   ThumbsUp,
-  ThumbsDown
+  ThumbsDown,
+  X,
+  Star,
+  Clock,
+  Zap,
+  Brain,
+  Heart,
+  Sparkles,
+  ChevronDown,
+  Copy,
+  Check,
+  RefreshCw
 } from 'lucide-react'
 
 interface Message {
@@ -28,6 +39,9 @@ interface Message {
     label: string
     url: string
   }>
+  isTyping?: boolean
+  isLiked?: boolean
+  isDisliked?: boolean
 }
 
 const CareerGenie = () => {
@@ -35,7 +49,11 @@ const CareerGenie = () => {
   const [inputMessage, setInputMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [suggestions, setSuggestions] = useState<string[]>([])
+  const [isTyping, setIsTyping] = useState(false)
+  const [copiedMessageId, setCopiedMessageId] = useState<string | null>(null)
+  const [showSuggestions, setShowSuggestions] = useState(true)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLTextAreaElement>(null)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -107,6 +125,49 @@ const CareerGenie = () => {
 
   const handleSuggestionClick = (suggestion: string) => {
     setInputMessage(suggestion)
+    inputRef.current?.focus()
+  }
+
+  const handleLikeMessage = (messageId: string) => {
+    setMessages(prev => prev.map(msg => 
+      msg.id === messageId 
+        ? { ...msg, isLiked: !msg.isLiked, isDisliked: false }
+        : msg
+    ))
+  }
+
+  const handleDislikeMessage = (messageId: string) => {
+    setMessages(prev => prev.map(msg => 
+      msg.id === messageId 
+        ? { ...msg, isDisliked: !msg.isDisliked, isLiked: false }
+        : msg
+    ))
+  }
+
+  const handleCopyMessage = async (content: string, messageId: string) => {
+    try {
+      await navigator.clipboard.writeText(content)
+      setCopiedMessageId(messageId)
+      setTimeout(() => setCopiedMessageId(null), 2000)
+    } catch (err) {
+      console.error('Failed to copy text: ', err)
+    }
+  }
+
+  const handleClearChat = () => {
+    setMessages([])
+    const welcomeMessage: Message = {
+      id: '1',
+      role: 'assistant',
+      content: "Hello! I'm CareerGenie, your AI career guidance assistant. I'm here to help you discover your perfect career path, explore educational opportunities, and make informed decisions about your future. How can I assist you today?",
+      timestamp: new Date(),
+      suggestedActions: [
+        { type: 'navigate', label: 'Take Aptitude Test', url: '/aptitude-test' },
+        { type: 'navigate', label: 'Explore Career Paths', url: '/career-mapping' },
+        { type: 'navigate', label: 'Find Colleges', url: '/colleges' }
+      ]
+    }
+    setMessages([welcomeMessage])
   }
 
   const generateAIResponse = (userMessage: string): string => {
@@ -166,8 +227,8 @@ const CareerGenie = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50 py-20">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50 pt-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -175,23 +236,49 @@ const CareerGenie = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-8"
         >
-          <div className="bg-primary-600 p-4 rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center">
-            <MessageCircle className="h-10 w-10 text-white" />
+          <div className="relative">
+            <div className="bg-gradient-to-r from-primary-600 to-secondary-600 p-4 rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center shadow-lg">
+              <MessageCircle className="h-10 w-10 text-white" />
+            </div>
+            <div className="absolute -top-2 -right-2 bg-accent-500 rounded-full p-2">
+              <Sparkles className="h-4 w-4 text-white" />
+            </div>
           </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             Career Genie
           </h1>
-          <p className="text-xl text-gray-600">
-            Your AI-powered career guidance assistant
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Your AI-powered career guidance assistant. Get personalized advice, explore career paths, and make informed decisions about your future.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-4 gap-8">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
           {/* Chat Interface */}
-          <div className="lg:col-span-3">
-            <div className="bg-white rounded-2xl shadow-xl h-[600px] flex flex-col">
+          <div className="flex-1 lg:flex-[3]">
+            <div className="bg-white rounded-2xl shadow-xl h-[600px] lg:h-[700px] flex flex-col relative overflow-hidden">
+              {/* Chat Header */}
+              <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gradient-to-r from-primary-50 to-secondary-50">
+                <div className="flex items-center space-x-3">
+                  <div className="bg-gradient-to-r from-primary-600 to-secondary-600 p-2 rounded-full">
+                    <Bot className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">Career Genie</h3>
+                    <p className="text-sm text-gray-500">AI Career Assistant</p>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <button
+                    onClick={handleClearChat}
+                    className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+                    title="Clear Chat"
+                  >
+                    <RefreshCw className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
               {/* Messages */}
-              <div className="flex-1 overflow-y-auto p-6 space-y-4">
+              <div className="flex-1 overflow-y-auto p-4 lg:p-6 space-y-4">
                 <AnimatePresence>
                   {messages.map((message) => (
                     <motion.div
@@ -202,31 +289,70 @@ const CareerGenie = () => {
                       transition={{ duration: 0.3 }}
                       className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
                     >
-                      <div className={`flex items-start space-x-3 max-w-[80%] ${
+                      <div className={`flex items-start space-x-3 max-w-[85%] lg:max-w-[80%] ${
                         message.role === 'user' ? 'flex-row-reverse space-x-reverse' : ''
                       }`}>
-                        <div className={`p-2 rounded-full ${
+                        <div className={`p-2 rounded-full flex-shrink-0 ${
                           message.role === 'user' 
-                            ? 'bg-primary-600' 
-                            : 'bg-secondary-600'
+                            ? 'bg-gradient-to-r from-primary-600 to-primary-700' 
+                            : 'bg-gradient-to-r from-secondary-600 to-secondary-700'
                         }`}>
                           {message.role === 'user' ? (
-                            <User className="h-5 w-5 text-white" />
+                            <User className="h-4 w-4 lg:h-5 lg:w-5 text-white" />
                           ) : (
-                            <Bot className="h-5 w-5 text-white" />
+                            <Bot className="h-4 w-4 lg:h-5 lg:w-5 text-white" />
                           )}
                         </div>
-                        <div className={`rounded-2xl p-4 ${
+                        <div className={`rounded-2xl p-4 relative group ${
                           message.role === 'user'
-                            ? 'bg-primary-600 text-white'
-                            : 'bg-gray-100 text-gray-900'
+                            ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white'
+                            : 'bg-gray-100 text-gray-900 border border-gray-200'
                         }`}>
-                          <p className="whitespace-pre-line">{message.content}</p>
-                          <p className={`text-xs mt-2 ${
-                            message.role === 'user' ? 'text-primary-100' : 'text-gray-500'
-                          }`}>
-                            {message.timestamp.toLocaleTimeString()}
-                          </p>
+                          <p className="whitespace-pre-line text-sm lg:text-base leading-relaxed">{message.content}</p>
+                          <div className="flex items-center justify-between mt-3">
+                            <p className={`text-xs ${
+                              message.role === 'user' ? 'text-primary-100' : 'text-gray-500'
+                            }`}>
+                              {message.timestamp.toLocaleTimeString()}
+                            </p>
+                            {message.role === 'assistant' && (
+                              <div className="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button
+                                  onClick={() => handleLikeMessage(message.id)}
+                                  className={`p-1 rounded ${
+                                    message.isLiked 
+                                      ? 'bg-green-100 text-green-600' 
+                                      : 'hover:bg-gray-200 text-gray-400'
+                                  }`}
+                                  title="Like"
+                                >
+                                  <ThumbsUp className="h-3 w-3" />
+                                </button>
+                                <button
+                                  onClick={() => handleDislikeMessage(message.id)}
+                                  className={`p-1 rounded ${
+                                    message.isDisliked 
+                                      ? 'bg-red-100 text-red-600' 
+                                      : 'hover:bg-gray-200 text-gray-400'
+                                  }`}
+                                  title="Dislike"
+                                >
+                                  <ThumbsDown className="h-3 w-3" />
+                                </button>
+                                <button
+                                  onClick={() => handleCopyMessage(message.content, message.id)}
+                                  className="p-1 rounded hover:bg-gray-200 text-gray-400"
+                                  title="Copy"
+                                >
+                                  {copiedMessageId === message.id ? (
+                                    <Check className="h-3 w-3 text-green-600" />
+                                  ) : (
+                                    <Copy className="h-3 w-3" />
+                                  )}
+                                </button>
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </motion.div>
@@ -239,14 +365,18 @@ const CareerGenie = () => {
                     animate={{ opacity: 1, y: 0 }}
                     className="flex justify-start"
                   >
-                    <div className="flex items-start space-x-3">
-                      <div className="p-2 rounded-full bg-secondary-600">
-                        <Bot className="h-5 w-5 text-white" />
+                    <div className="flex items-start space-x-3 max-w-[85%] lg:max-w-[80%]">
+                      <div className="p-2 rounded-full bg-gradient-to-r from-secondary-600 to-secondary-700 flex-shrink-0">
+                        <Bot className="h-4 w-4 lg:h-5 lg:w-5 text-white" />
                       </div>
-                      <div className="bg-gray-100 rounded-2xl p-4">
+                      <div className="bg-gray-100 rounded-2xl p-4 border border-gray-200">
                         <div className="flex items-center space-x-2">
-                          <Loader2 className="h-4 w-4 animate-spin text-secondary-600" />
-                          <span className="text-gray-600">CareerGenie is thinking...</span>
+                          <div className="flex space-x-1">
+                            <div className="w-2 h-2 bg-secondary-600 rounded-full animate-bounce"></div>
+                            <div className="w-2 h-2 bg-secondary-600 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                            <div className="w-2 h-2 bg-secondary-600 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                          </div>
+                          <span className="text-gray-600 text-sm">CareerGenie is thinking...</span>
                         </div>
                       </div>
                     </div>
@@ -281,93 +411,163 @@ const CareerGenie = () => {
               )}
 
               {/* Input */}
-              <div className="p-6 border-t border-gray-200">
-                <div className="flex space-x-4">
-                  <div className="flex-1 relative">
-                    <textarea
-                      value={inputMessage}
-                      onChange={(e) => setInputMessage(e.target.value)}
-                      onKeyPress={handleKeyPress}
-                      placeholder="Ask me anything about careers, colleges, or education..."
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
-                      rows={2}
-                      disabled={isLoading}
-                    />
+              <div className="p-4 lg:p-6 border-t border-gray-200 bg-gray-50">
+                <div className="flex flex-col space-y-3">
+                  {/* Quick Suggestions */}
+                  {showSuggestions && suggestions.length > 0 && (
+                    <div className="flex flex-wrap gap-2">
+                      {suggestions.slice(0, 3).map((suggestion, index) => (
+                        <button
+                          key={index}
+                          onClick={() => handleSuggestionClick(suggestion)}
+                          className="text-xs bg-white border border-gray-300 text-gray-700 px-3 py-1 rounded-full hover:bg-primary-50 hover:border-primary-300 hover:text-primary-700 transition-colors"
+                        >
+                          {suggestion.length > 30 ? `${suggestion.substring(0, 30)}...` : suggestion}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                  
+                  <div className="flex space-x-3">
+                    <div className="flex-1 relative">
+                      <textarea
+                        ref={inputRef}
+                        value={inputMessage}
+                        onChange={(e) => setInputMessage(e.target.value)}
+                        onKeyPress={handleKeyPress}
+                        placeholder="Ask me anything about careers, colleges, or education..."
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none text-sm lg:text-base"
+                        rows={2}
+                        disabled={isLoading}
+                      />
+                      <div className="absolute bottom-2 right-2 text-xs text-gray-400">
+                        {inputMessage.length}/500
+                      </div>
+                    </div>
+                    <button
+                      onClick={handleSendMessage}
+                      disabled={!inputMessage.trim() || isLoading}
+                      className="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-4 lg:px-6 py-3 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2 hover:from-primary-700 hover:to-primary-800 transition-all duration-200 shadow-lg hover:shadow-xl"
+                    >
+                      <Send className="h-4 w-4 lg:h-5 lg:w-5" />
+                    </button>
                   </div>
-                  <button
-                    onClick={handleSendMessage}
-                    disabled={!inputMessage.trim() || isLoading}
-                    className="btn-primary px-6 py-3 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
-                  >
-                    <Send className="h-5 w-5" />
-                  </button>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-6">
+          <div className="w-full lg:w-80 space-y-6">
             {/* Quick Suggestions */}
-            <div className="bg-white rounded-2xl shadow-xl p-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
-                <Lightbulb className="h-5 w-5 text-accent-600" />
-                <span>Quick Questions</span>
-              </h3>
-              <div className="space-y-2">
-                {suggestions.slice(0, 5).map((suggestion, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleSuggestionClick(suggestion)}
-                    className="w-full text-left p-3 bg-gray-50 hover:bg-primary-50 rounded-lg text-sm transition-colors duration-200"
-                  >
-                    {suggestion}
-                  </button>
-                ))}
+            <div className="bg-white rounded-2xl shadow-xl p-4 lg:p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-bold text-gray-900 flex items-center space-x-2">
+                  <Lightbulb className="h-5 w-5 text-accent-600" />
+                  <span>Quick Questions</span>
+                </h3>
+                <button
+                  onClick={() => setShowSuggestions(!showSuggestions)}
+                  className="p-1 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <ChevronDown className={`h-4 w-4 text-gray-400 transition-transform ${showSuggestions ? 'rotate-180' : ''}`} />
+                </button>
               </div>
+              {showSuggestions && (
+                <div className="space-y-2">
+                  {suggestions.slice(0, 5).map((suggestion, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handleSuggestionClick(suggestion)}
+                      className="w-full text-left p-3 bg-gray-50 hover:bg-primary-50 rounded-lg text-sm transition-colors duration-200 border border-transparent hover:border-primary-200"
+                    >
+                      {suggestion}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Quick Actions */}
-            <div className="bg-white rounded-2xl shadow-xl p-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-4">Quick Actions</h3>
+            <div className="bg-white rounded-2xl shadow-xl p-4 lg:p-6">
+              <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
+                <Zap className="h-5 w-5 text-primary-600" />
+                <span>Quick Actions</span>
+              </h3>
               <div className="space-y-3">
                 <button 
                   onClick={() => window.location.href = '/aptitude-test'}
-                  className="w-full btn-primary flex items-center justify-center space-x-2"
+                  className="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 px-4 rounded-xl hover:from-primary-700 hover:to-primary-800 transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl"
                 >
                   <Target className="h-4 w-4" />
                   <span>Take Aptitude Test</span>
                 </button>
                 <button 
                   onClick={() => window.location.href = '/career-mapping'}
-                  className="w-full btn-outline flex items-center justify-center space-x-2"
+                  className="w-full border-2 border-primary-200 text-primary-700 py-3 px-4 rounded-xl hover:bg-primary-50 hover:border-primary-300 transition-all duration-200 flex items-center justify-center space-x-2"
                 >
                   <BookOpen className="h-4 w-4" />
                   <span>Career Mapping</span>
                 </button>
                 <button 
                   onClick={() => window.location.href = '/colleges'}
-                  className="w-full btn-outline flex items-center justify-center space-x-2"
+                  className="w-full border-2 border-secondary-200 text-secondary-700 py-3 px-4 rounded-xl hover:bg-secondary-50 hover:border-secondary-300 transition-all duration-200 flex items-center justify-center space-x-2"
                 >
                   <MapPin className="h-4 w-4" />
                   <span>Find Colleges</span>
+                </button>
+                <button 
+                  onClick={() => window.location.href = '/mentors'}
+                  className="w-full border-2 border-accent-200 text-accent-700 py-3 px-4 rounded-xl hover:bg-accent-50 hover:border-accent-300 transition-all duration-200 flex items-center justify-center space-x-2"
+                >
+                  <Heart className="h-4 w-4" />
+                  <span>Connect with Mentors</span>
                 </button>
               </div>
             </div>
 
             {/* Tips */}
-            <div className="bg-gradient-to-br from-primary-50 to-secondary-50 rounded-2xl p-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-3">💡 Pro Tips</h3>
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li>• Be specific about your interests and goals</li>
-                <li>• Ask about career prospects and salary ranges</li>
-                <li>• Inquire about required skills and qualifications</li>
-                <li>• Get information about admission processes</li>
-                <li>• Ask for alternative career paths</li>
-              </ul>
+            <div className="bg-gradient-to-br from-primary-50 to-secondary-50 rounded-2xl p-4 lg:p-6 border border-primary-100">
+              <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
+                <Brain className="h-5 w-5 text-primary-600" />
+                <span>Pro Tips</span>
+              </h3>
+              <div className="space-y-3">
+                <div className="flex items-start space-x-3">
+                  <div className="bg-primary-100 rounded-full p-1 mt-0.5">
+                    <Star className="h-3 w-3 text-primary-600" />
+                  </div>
+                  <p className="text-sm text-gray-600">Be specific about your interests and goals</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="bg-primary-100 rounded-full p-1 mt-0.5">
+                    <Star className="h-3 w-3 text-primary-600" />
+                  </div>
+                  <p className="text-sm text-gray-600">Ask about career prospects and growth opportunities</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="bg-primary-100 rounded-full p-1 mt-0.5">
+                    <Star className="h-3 w-3 text-primary-600" />
+                  </div>
+                  <p className="text-sm text-gray-600">Inquire about required skills and qualifications</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="bg-primary-100 rounded-full p-1 mt-0.5">
+                    <Star className="h-3 w-3 text-primary-600" />
+                  </div>
+                  <p className="text-sm text-gray-600">Get information about admission processes</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="bg-primary-100 rounded-full p-1 mt-0.5">
+                    <Star className="h-3 w-3 text-primary-600" />
+                  </div>
+                  <p className="text-sm text-gray-600">Ask for alternative career paths</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   )

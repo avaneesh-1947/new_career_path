@@ -5,11 +5,45 @@ import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { ArrowRight, Brain, Compass, GraduationCap, Globe, Award, TrendingUp, User, BookOpen, MapPin, MessageCircle, BarChart3, Star, Users, Clock, CheckCircle, Target, Lightbulb, BookOpenCheck, Calendar, Phone, Mail, MapPin as LocationIcon } from 'lucide-react'
 import Link from 'next/link'
+import ImageCarousel from '../../components/ImageCarousel'
 
 export default function HomePage() {
   const router = useRouter()
   const [user, setUser] = useState<{ name?: string; email: string } | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+
+  // Carousel slides data for authenticated users
+  const carouselSlides = [
+    {
+      id: 1,
+      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80",
+      title: `Welcome back, ${user?.name || 'Student'}!`,
+      description: "Ready to continue your career journey? Let's explore new opportunities and take the next step towards your dreams.",
+      gradient: "bg-gradient-to-br from-primary-50/90 via-white/90 to-secondary-50/90",
+      isWelcomeSlide: true
+    },
+    {
+      id: 2,
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      title: "Explore New Opportunities",
+      description: "Discover new career paths and opportunities that align with your interests and skills.",
+      gradient: "bg-gradient-to-br from-green-600/80 to-teal-600/80"
+    },
+    {
+      id: 3,
+      image: "https://images.unsplash.com/photo-1523240798034-6a5b4b4b4b4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      title: "Connect with Mentors",
+      description: "Get guidance from industry experts and accelerate your career development with professional mentorship.",
+      gradient: "bg-gradient-to-br from-purple-600/80 to-pink-600/80"
+    },
+    {
+      id: 4,
+      image: "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      title: "Track Your Achievements",
+      description: "Monitor your progress and celebrate your achievements as you work towards your career goals.",
+      gradient: "bg-gradient-to-br from-orange-600/80 to-red-600/80"
+    }
+  ]
 
   useEffect(() => {
     const checkAuth = () => {
@@ -71,68 +105,24 @@ export default function HomePage() {
     <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50">
       {/* Main Content */}
       <div className="pt-16 min-h-screen">
-        {/* Hero Section */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-primary-50 via-white to-secondary-50">
+        {/* Hero Carousel Section */}
+        <section className="relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(59,130,246,0.1),transparent_50%),radial-gradient(circle_at_80%_30%,rgba(34,197,94,0.08),transparent_50%),radial-gradient(circle_at_40%_80%,rgba(234,179,8,0.08),transparent_50%)]"></div>
           
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
-            <div className="text-center lg:text-left">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="inline-flex items-center px-4 py-2 rounded-full bg-primary-100 text-primary-700 text-sm font-medium mb-6"
-              >
-                <Star className="h-4 w-4 mr-2" />
-                Welcome back!
-              </motion.div>
-              
-              <motion.h1 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6"
-              >
-                Welcome back,{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-secondary-600">
-                  {user?.name || 'Student'}!
-                </span>
-              </motion.h1>
-              
-              <motion.p 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0"
-              >
-                Ready to continue your career journey? Let's explore new opportunities and take the next step towards your dreams.
-              </motion.p>
-
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8"
-              >
-                <button 
-                  onClick={() => router.push('/aptitude-test')}
-                  className="group bg-gradient-to-r from-primary-600 to-primary-700 text-white text-lg px-8 py-4 rounded-xl font-semibold hover:from-primary-700 hover:to-primary-800 hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl"
-                >
-                  <Brain className="h-5 w-5" />
-                  <span>Start Aptitude Test</span>
-                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                </button>
-                <button 
-                  onClick={() => router.push('/career-mapping')}
-                  className="group border-2 border-primary-600 text-primary-600 text-lg px-8 py-4 rounded-xl font-semibold hover:bg-primary-600 hover:text-white hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
-                >
-                  <Compass className="h-5 w-5" />
-                  <span>View Career Roadmap</span>
-                </button>
-              </motion.div>
-            </div>
+            <ImageCarousel
+              slides={carouselSlides}
+              autoPlay={true}
+              autoPlayInterval={5000}
+              showControls={true}
+              showIndicators={true}
+              onStartAptitudeTest={() => router.push('/aptitude-test')}
+              onViewCareerRoadmap={() => router.push('/career-mapping')}
+              className="h-[400px] md:h-[450px] lg:h-[500px] rounded-3xl shadow-2xl"
+            />
           </div>
         </section>
+
 
         {/* Quick Actions Section */}
         <section className="py-16 lg:py-24 bg-white">

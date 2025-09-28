@@ -5,11 +5,51 @@ import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { ArrowRight, Brain, Compass, GraduationCap, Globe, Award, TrendingUp, User, BookOpen, MapPin, MessageCircle, BarChart3, Star, Users, Clock, CheckCircle, Target, Lightbulb, BookOpenCheck, Calendar, Phone, Mail, MapPin as LocationIcon } from 'lucide-react'
 import Link from 'next/link'
+import ImageCarousel from '../components/ImageCarousel'
 
 export default function RootPage() {
   const router = useRouter()
   const [user, setUser] = useState<{ name?: string; email: string } | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+
+  // Carousel slides data
+  const carouselSlides = [
+    {
+      id: 1,
+      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80",
+      title: "Discover Your Career Path",
+      description: "Take our comprehensive aptitude test and unlock your potential with personalized career recommendations.",
+      gradient: "bg-gradient-to-br from-blue-600/80 to-purple-600/80"
+    },
+    {
+      id: 2,
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      title: "Explore Top Colleges",
+      description: "Browse through 200+ government colleges and find the perfect institution for your career goals.",
+      gradient: "bg-gradient-to-br from-green-600/80 to-teal-600/80"
+    },
+    {
+      id: 3,
+      image: "https://images.unsplash.com/photo-1523240798034-6a5b4b4b4b4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      title: "Get Expert Guidance",
+      description: "Connect with industry professionals and career counselors for personalized mentorship and support.",
+      gradient: "bg-gradient-to-br from-purple-600/80 to-pink-600/80"
+    },
+    {
+      id: 4,
+      image: "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      title: "Track Your Progress",
+      description: "Monitor your career development journey with detailed analytics and achievement tracking.",
+      gradient: "bg-gradient-to-br from-orange-600/80 to-red-600/80"
+    },
+    {
+      id: 5,
+      image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      title: "Achieve Your Dreams",
+      description: "Join thousands of students who have successfully found their perfect career path with our guidance.",
+      gradient: "bg-gradient-to-br from-indigo-600/80 to-blue-600/80"
+    }
+  ]
 
   useEffect(() => {
     const checkAuth = () => {
@@ -509,6 +549,46 @@ export default function RootPage() {
                   </motion.div>
                 </motion.div>
               </div>
+            </div>
+          </section>
+
+          {/* Image Carousel Section */}
+          <section className="py-16 lg:py-24 bg-gray-50">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-16">
+                <motion.h2 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6"
+                >
+                  Your Career Journey
+                </motion.h2>
+                <motion.p 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="text-xl text-gray-600 max-w-3xl mx-auto"
+                >
+                  Discover the path to your dream career with our comprehensive guidance platform
+                </motion.p>
+              </div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="relative"
+              >
+                <ImageCarousel
+                  slides={carouselSlides}
+                  autoPlay={true}
+                  autoPlayInterval={6000}
+                  showControls={true}
+                  showIndicators={true}
+                  className="h-96 md:h-[500px] lg:h-[600px] rounded-3xl shadow-2xl"
+                />
+              </motion.div>
             </div>
           </section>
 

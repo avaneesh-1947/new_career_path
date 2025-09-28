@@ -70,7 +70,7 @@ const Colleges = () => {
       website: 'www.jnu.ac.in',
       phone: '+91 11 2670 4000',
       email: 'info@jnu.ac.in',
-      image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&h=300&fit=crop',
+      image: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=300&fit=crop',
       description: 'Renowned for its research excellence and academic rigor in social sciences and humanities.',
       admissionDates: 'March - May 2024',
       scholarships: ['Merit-based', 'Research Fellowships', 'International Exchange']

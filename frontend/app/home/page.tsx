@@ -109,7 +109,7 @@ export default function HomePage() {
         <section className="relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(59,130,246,0.1),transparent_50%),radial-gradient(circle_at_80%_30%,rgba(34,197,94,0.08),transparent_50%),radial-gradient(circle_at_40%_80%,rgba(234,179,8,0.08),transparent_50%)]"></div>
           
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+          <div className="relative max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
             <ImageCarousel
               slides={carouselSlides}
               autoPlay={true}
@@ -118,7 +118,7 @@ export default function HomePage() {
               showIndicators={true}
               onStartAptitudeTest={() => router.push('/aptitude-test')}
               onViewCareerRoadmap={() => router.push('/career-mapping')}
-              className="h-[400px] md:h-[450px] lg:h-[500px] rounded-3xl shadow-2xl"
+              className="h-[400px] md:h-[450px] lg:h-[500px] w-full max-w-8xl mx-auto rounded-3xl shadow-2xl"
             />
           </div>
         </section>
@@ -126,7 +126,7 @@ export default function HomePage() {
 
         {/* Quick Actions Section */}
         <section className="py-16 lg:py-24 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <motion.h2 
                 initial={{ opacity: 0, y: 20 }}
@@ -237,7 +237,7 @@ export default function HomePage() {
 
         {/* Your Progress Section */}
         <section className="py-16 lg:py-24 bg-gradient-to-r from-primary-50 to-secondary-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <motion.h2 
                 initial={{ opacity: 0, y: 20 }}
@@ -291,7 +291,7 @@ export default function HomePage() {
 
         {/* Recent Activity Section */}
         <section className="py-16 lg:py-24 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <motion.h2 
                 initial={{ opacity: 0, y: 20 }}

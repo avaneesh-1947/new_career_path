@@ -155,7 +155,7 @@ const CTA = () => {
                     <div className="w-16 h-16 bg-primary-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
                       <Globe className="h-8 w-8 text-white" />
                     </div>
-                    <h3 className="text-lg font-bold text-gray-900">Career Guide</h3>
+                    <h3 className="text-lg font-bold text-gray-900">Fyndor</h3>
                     <p className="text-sm text-gray-600">Your Path to Success</p>
                   </div>
                   

@@ -64,13 +64,16 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand Section */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center space-x-2 mb-6">
-              <div className="bg-primary-600 p-2 rounded-lg">
-                <GraduationCap className="h-6 w-6 text-white" />
+            <Link href="/" className="flex items-center space-x-3 mb-6 group">
+              <div className="relative">
+                <img src="/fyndor-logo-blue-green.svg?v=3" alt="Fyndor" className="h-11 w-11 drop-shadow-2xl transition-transform group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400/30 via-cyan-400/30 to-emerald-400/30 rounded-2xl blur-xl group-hover:blur-2xl transition-all"></div>
               </div>
-              <span className="text-xl font-bold">
-                Career<span className="text-primary-400">Guide</span>
-              </span>
+              <div className="relative">
+                <span className="text-2xl font-bold bg-gradient-to-r from-blue-300 via-cyan-300 to-emerald-300 bg-clip-text text-transparent hover:from-blue-200 hover:via-cyan-200 hover:to-emerald-200 transition-all duration-300 tracking-wide">
+                  Fyndor
+                </span>
+              </div>
             </Link>
             
             <p className="text-gray-300 mb-6 leading-relaxed">
@@ -82,7 +85,7 @@ const Footer = () => {
             <div className="space-y-3 mb-6">
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-primary-400" />
-                <span className="text-gray-300">support@careerguide.in</span>
+                <span className="text-gray-300">support@fyndor.com</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-primary-400" />
@@ -183,7 +186,7 @@ const Footer = () => {
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="flex items-center space-x-2 text-gray-400">
-              <span>© {currentYear} Career Guide Platform. Made with</span>
+              <span>© {currentYear} Fyndor Platform. Made with</span>
               <Heart className="h-4 w-4 text-red-500" />
               <span>for students across India.</span>
             </div>

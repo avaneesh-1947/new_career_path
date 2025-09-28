@@ -126,13 +126,16 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link href="/home" className="flex items-center space-x-2">
-              <div className="bg-primary-600 p-2 rounded-lg">
-                <GraduationCap className="h-6 w-6 text-white" />
+            <Link href="/home" className="flex items-center space-x-3 group">
+              <div className="relative">
+                <img src="/fyndor-logo-blue-green.svg?v=3" alt="Fyndor" className="h-11 w-11 drop-shadow-xl transition-transform group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-cyan-500/20 to-emerald-500/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all"></div>
               </div>
-              <span className="text-xl font-bold text-gray-900">
-                Career<span className="text-primary-600">Guide</span>
-              </span>
+              <div className="relative">
+                <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 via-cyan-600 to-emerald-600 bg-clip-text text-transparent hover:from-blue-700 hover:via-cyan-700 hover:to-emerald-700 transition-all duration-300 tracking-wide">
+                  Fyndor
+                </span>
+              </div>
             </Link>
           </div>
           

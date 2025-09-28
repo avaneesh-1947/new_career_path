@@ -26,7 +26,7 @@ const LoadingSpinner = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="text-2xl font-bold text-gray-900 mb-4"
         >
-          Career Guide Platform
+          Fyndor Platform
         </motion.h2>
 
         <motion.p

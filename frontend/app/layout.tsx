@@ -10,10 +10,10 @@ import { LanguageProvider } from '@/contexts/LanguageContext'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Career Guidance Platform - Your Path to Success',
+  title: 'Fyndor - Your Path to Success',
   description: 'A comprehensive digital platform for students to discover their career paths, explore government colleges, and make informed educational decisions.',
   keywords: 'career guidance, education, government colleges, aptitude test, career mapping',
-  authors: [{ name: 'Career Guidance Platform Team' }],
+  authors: [{ name: 'Fyndor Team' }],
 }
 
 export const viewport = {

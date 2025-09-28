@@ -96,7 +96,7 @@ const Testimonials = () => {
             </span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Hear from students who have transformed their lives with our career guidance platform.
+            Hear from students who have transformed their lives with Fyndor.
           </p>
         </motion.div>
 

@@ -1,7 +1,7 @@
 {
-  "name": "career-guidance-backend",
+  "name": "fyndor-backend",
   "version": "1.0.0",
-  "description": "Backend API for Career Guidance Platform",
+  "description": "Backend API for Fyndor Platform",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -42,6 +42,6 @@
     "nodejs",
     "express"
   ],
-  "author": "Career Guidance Platform Team",
+  "author": "Fyndor Team",
   "license": "MIT"
 }

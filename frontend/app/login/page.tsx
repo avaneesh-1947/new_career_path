@@ -163,7 +163,7 @@ const Login = () => {
               <h1 className="text-4xl font-bold text-gray-900 mb-6">
                 {'Welcome to'}{' '}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-secondary-600">
-                  Career Guide
+                  Fyndor
                 </span>
               </h1>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">

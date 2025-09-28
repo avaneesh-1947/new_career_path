@@ -1,6 +1,6 @@
-# Career Guidance Platform - Backend
+# Fyndor - Backend
 
-A robust Node.js backend API for the Career Guidance Platform, built with Express.js and MongoDB.
+A robust Node.js backend API for Fyndor, built with Express.js and MongoDB.
 
 ## 🚀 Features
 
@@ -275,7 +275,7 @@ FIREBASE_CLIENT_EMAIL=your_firebase_client_email
 
 # Email Configuration
 RESEND_API_KEY=your_resend_api_key_here
-FROM_EMAIL=noreply@careerguide.in
+FROM_EMAIL=noreply@fyndor.com
 
 # Google Maps API
 GOOGLE_MAPS_API_KEY=your_google_maps_api_key_here

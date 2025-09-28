@@ -1,6 +1,6 @@
-# Career Guidance Platform - Frontend
+# Fyndor - Frontend
 
-A modern, responsive frontend application built with Next.js 14 for the Career Guidance Platform.
+A modern, responsive frontend application built with Next.js 14 for Fyndor.
 
 ## 🚀 Features
 

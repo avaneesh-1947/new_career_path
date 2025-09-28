@@ -19,7 +19,7 @@ export default function HomePage() {
       image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80",
       title: `Welcome back, ${user?.name || 'Student'}!`,
       description: "Ready to continue your career journey? Let's explore new opportunities and take the next step towards your dreams.",
-      gradient: "bg-gradient-to-br from-primary-50/90 via-white/90 to-secondary-50/90",
+      gradient: "bg-gradient-to-r from-indigo-900/80 via-fuchsia-700/70 to-orange-500/80",
       isWelcomeSlide: true
     },
     {

@@ -123,14 +123,14 @@ const ImageCarousel = ({
                 {/* Content Overlay */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center px-8 max-w-4xl">
-                    {slide.isWelcomeSlide ? (
-                      // Welcome Slide Content
-                      <div className="text-center lg:text-left">
+                      {slide.isWelcomeSlide ? (
+                        // Welcome Slide Content
+                        <div className="text-center lg:text-left">
                         <motion.div
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.6 }}
-                          className="inline-flex items-center px-4 py-2 rounded-full bg-primary-100 text-primary-700 text-sm font-medium mb-6"
+                          className="inline-flex items-center px-4 py-2 rounded-full bg-white/20 text-white text-sm font-medium mb-6 backdrop-blur-[2px]"
                         >
                           <Star className="h-4 w-4 mr-2" />
                           Welcome back!
@@ -140,10 +140,10 @@ const ImageCarousel = ({
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.6, delay: 0.1 }}
-                          className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6"
+                          className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6"
                         >
                           Welcome back,{' '}
-                          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-secondary-600">
+                          <span className="text-white">
                             {slide.title.split('Welcome back, ')[1]?.replace('!', '') || 'Student'}!
                           </span>
                         </motion.h2>
@@ -152,7 +152,7 @@ const ImageCarousel = ({
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.6, delay: 0.2 }}
-                          className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0"
+                          className="text-xl text-white/90 mb-8 max-w-2xl mx-auto lg:mx-0"
                         >
                           {slide.description}
                         </motion.p>
@@ -173,14 +173,14 @@ const ImageCarousel = ({
                           </button>
                           <button
                             onClick={onViewCareerRoadmap}
-                            className="group border-2 border-primary-600 text-primary-600 text-lg px-8 py-4 rounded-xl font-semibold hover:bg-primary-600 hover:text-white hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+                            className="group border-2 border-white/80 text-white text-lg px-8 py-4 rounded-xl font-semibold bg-white/10 hover:bg-white hover:text-gray-900 hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 backdrop-blur-[2px]"
                           >
                             <Compass className="h-5 w-5" />
                             <span>View Career Roadmap</span>
                           </button>
-                        </motion.div>
-                      </div>
-                    ) : (
+                          </motion.div>
+                        </div>
+                      ) : (
                       // Regular Slide Content
                       <div className="text-center text-white">
                         <motion.h2

@@ -158,7 +158,7 @@ const Colleges = () => {
       website: 'www.caluniv.ac.in',
       phone: '+91 33 2241 0071',
       email: 'info@caluniv.ac.in',
-      image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&h=300&fit=crop',
+      image: 'https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=400&h=300&fit=crop',
       description: 'One of the oldest universities in India with rich academic heritage.',
       admissionDates: 'June - August 2024',
       scholarships: ['Merit-based', 'Need-based', 'SC/ST/OBC']

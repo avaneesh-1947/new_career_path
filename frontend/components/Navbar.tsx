@@ -112,7 +112,7 @@ const Navbar = () => {
   }
 
   const navItems = [
-    { name: t('nav.home'), href: '/', icon: GraduationCap },
+    { name: t('nav.home'), href: '/home', icon: GraduationCap },
     { name: t('nav.aptitudeTest'), href: '/aptitude-test', icon: BookOpen },
     { name: t('nav.careerMapping'), href: '/career-mapping', icon: BarChart3 },
     { name: t('nav.colleges'), href: '/colleges', icon: MapPin },
@@ -126,7 +126,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link href="/" className="flex items-center space-x-2">
+            <Link href="/home" className="flex items-center space-x-2">
               <div className="bg-primary-600 p-2 rounded-lg">
                 <GraduationCap className="h-6 w-6 text-white" />
               </div>
@@ -139,7 +139,7 @@ const Navbar = () => {
           {/* Center Navigation - Only show on large screens */}
           {user && (
             <div className="hidden xl:flex items-center space-x-1">
-              <Link href="/" className="flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-primary-50 transition-colors">
+              <Link href="/home" className="flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-primary-50 transition-colors">
                 <GraduationCap className="h-4 w-4" />
                 <span>Home</span>
               </Link>
@@ -215,7 +215,7 @@ const Navbar = () => {
           <div className="xl:hidden bg-white border-t border-gray-100 shadow-lg">
             <div className="px-4 py-2 space-y-1">
               <Link 
-                href="/" 
+                href="/home" 
                 className="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-primary-50 transition-colors"
                 onClick={() => setIsOpen(false)}
               >

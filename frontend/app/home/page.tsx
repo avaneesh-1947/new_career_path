@@ -234,6 +234,142 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* Your Progress Section */}
+        <section className="py-16 lg:py-24 bg-gradient-to-r from-primary-50 to-secondary-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <motion.h2 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4"
+              >
+                Your Progress
+              </motion.h2>
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="text-xl text-gray-600"
+              >
+                Track your career journey milestones
+              </motion.p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[
+                { icon: Target, value: "3", label: "Assessments Completed", color: "text-blue-600" },
+                { icon: CheckCircle, value: "12", label: "Goals Achieved", color: "text-green-600" },
+                { icon: Clock, value: "45", label: "Hours Studied", color: "text-amber-600" },
+                { icon: Star, value: "8.5", label: "Average Score", color: "text-purple-600" }
+              ].map((stat, index) => {
+                const Icon = stat.icon
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    className="text-center bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300"
+                  >
+                    <div className={`w-16 h-16 rounded-full bg-gray-50 flex items-center justify-center mx-auto mb-4`}>
+                      <Icon className={`h-8 w-8 ${stat.color}`} />
+                    </div>
+                    <div className={`text-3xl font-bold ${stat.color} mb-2`}>
+                      {stat.value}
+                    </div>
+                    <div className="text-gray-600 font-medium">
+                      {stat.label}
+                    </div>
+                  </motion.div>
+                )
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Recent Activity Section */}
+        <section className="py-16 lg:py-24 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <motion.h2 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4"
+              >
+                Recent Activity
+              </motion.h2>
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="text-xl text-gray-600"
+              >
+                Your latest career development activities
+              </motion.p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8"
+              >
+                <h3 className="text-xl font-bold text-gray-900 mb-6">Upcoming Tasks</h3>
+                <div className="space-y-4">
+                  {[
+                    { task: "Complete Aptitude Test", due: "Today", priority: "high" },
+                    { task: "Research Engineering Colleges", due: "Tomorrow", priority: "medium" },
+                    { task: "Update Career Profile", due: "This Week", priority: "low" }
+                  ].map((task, index) => (
+                    <div key={index} className="flex items-center justify-between p-4 bg-white rounded-xl shadow-sm">
+                      <div className="flex items-center">
+                        <div className={`w-3 h-3 rounded-full mr-3 ${
+                          task.priority === 'high' ? 'bg-red-500' : 
+                          task.priority === 'medium' ? 'bg-yellow-500' : 'bg-green-500'
+                        }`}></div>
+                        <span className="font-medium text-gray-900">{task.task}</span>
+                      </div>
+                      <span className="text-sm text-gray-500">{task.due}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8"
+              >
+                <h3 className="text-xl font-bold text-gray-900 mb-6">Achievements</h3>
+                <div className="space-y-4">
+                  {[
+                    { achievement: "Completed Career Assessment", date: "2 days ago", icon: Award },
+                    { achievement: "Explored 15 Colleges", date: "1 week ago", icon: MapPin },
+                    { achievement: "Set Career Goals", date: "2 weeks ago", icon: Target }
+                  ].map((achievement, index) => {
+                    const Icon = achievement.icon
+                    return (
+                      <div key={index} className="flex items-center p-4 bg-white rounded-xl shadow-sm">
+                        <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-4">
+                          <Icon className="h-5 w-5 text-green-600" />
+                        </div>
+                        <div>
+                          <div className="font-medium text-gray-900">{achievement.achievement}</div>
+                          <div className="text-sm text-gray-500">{achievement.date}</div>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   )
